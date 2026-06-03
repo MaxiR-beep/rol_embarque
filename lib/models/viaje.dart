@@ -1,36 +1,14 @@
-import 'package:hive/hive.dart';
-
 import 'pasajero.dart';
 
-part 'viaje.g.dart';
-
-@HiveType(typeId: 1)
 class Viaje {
-  @HiveField(0)
   final String id;
-
-  @HiveField(1)
   final String fecha;
-
-  @HiveField(2)
   final String hora;
-
-  @HiveField(3)
   final String origen;
-
-  @HiveField(4)
   final String destino;
-
-  @HiveField(5)
   final String embarcacion;
-
-  @HiveField(6)
   final String capitan;
-
-  @HiveField(7)
   final List<Pasajero> pasajeros;
-
-  @HiveField(8)
   final String observaciones;
 
   Viaje({
@@ -44,4 +22,31 @@ class Viaje {
     required this.pasajeros,
     required this.observaciones,
   });
+
+  factory Viaje.fromJson(Map<String, dynamic> json) {
+    return Viaje(
+      id: json['id'] ?? '',
+      fecha: json['fecha'] ?? '',
+      hora: json['hora'] ?? '',
+      origen: json['origen'] ?? '',
+      destino: json['destino'] ?? '',
+      embarcacion: json['embarcacion'] ?? '',
+      capitan: json['capitan'] ?? '',
+      pasajeros: (json['pasajeros'] as List<dynamic>?)
+              ?.map((p) => Pasajero.fromJson(p))
+              .toList() ??
+          [],
+      observaciones: json['observaciones'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'fecha': fecha,
+        'hora': hora,
+        'origen': origen,
+        'destino': destino,
+        'embarcacion': embarcacion,
+        'capitan': capitan,
+        'observaciones': observaciones,
+      };
 }

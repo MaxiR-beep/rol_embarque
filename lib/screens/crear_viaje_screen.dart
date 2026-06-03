@@ -1,7 +1,8 @@
+// Al inicio del archivo, reemplazar imports:
 import 'package:flutter/material.dart';
 import '../models/pasajero.dart';
 import '../models/viaje.dart';
-import 'package:hive/hive.dart';
+import '../services/pasajero_service.dart';
 import 'package:intl/intl.dart';
 
 class CrearViajeScreen extends StatefulWidget {
@@ -174,23 +175,17 @@ class _CrearViajeScreenState extends State<CrearViajeScreen> {
     });
   }
 
-  void buscarPasajeroPorDni(String dni) {
-    final boxPasajeros = Hive.box<Pasajero>('pasajeros');
-
-    final pasajero = boxPasajeros.get(dni);
-
-    if (pasajero != null) {
-      apellidoController.text = pasajero.apellido;
-
-      nombreController.text = pasajero.nombre;
-
-      fechaNacimientoController.text = pasajero.fechaNacimiento;
-
-      nacionalidadController.text = pasajero.nacionalidad;
-
-      observacionesPasajeroController.text = pasajero.observaciones;
-    }
+  void buscarPasajeroPorDni(String dni) async {
+  final resultados = await PasajeroService.buscarPorDni(dni);
+  if (resultados.isNotEmpty) {
+    final p = resultados.first;
+    apellidoController.text = p['apellido'] ?? '';
+    nombreController.text = p['nombre'] ?? '';
+    fechaNacimientoController.text = p['fecha_nacimiento'] ?? '';
+    nacionalidadController.text = p['nacionalidad'] ?? '';
+    observacionesPasajeroController.text = p['observaciones'] ?? '';
   }
+}
 
   void guardarViaje() {
     final viaje = Viaje(
