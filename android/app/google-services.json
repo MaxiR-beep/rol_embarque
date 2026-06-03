@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "191268747522",
+    "project_id": "rol-embarque",
+    "storage_bucket": "rol-embarque.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191268747522:android:1192d808fc518bc8736a1b",
+        "android_client_info": {
+          "package_name": "com.example.rol_embarque"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKP5_yfzvF_Rx6a0xdne9E6OFlva1z2eU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
