@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/viaje.dart';
 import '../providers/viaje_provider.dart';
 import '../providers/auth_provider.dart';
 import 'crear_viaje_screen.dart';
