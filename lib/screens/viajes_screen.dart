@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/viaje.dart';
 import '../providers/viaje_provider.dart';
+import '../providers/auth_provider.dart';
 import 'crear_viaje_screen.dart';
 import 'detalle_viaje_screen.dart';
 
@@ -13,7 +14,18 @@ class ViajesScreen extends ConsumerWidget {
     final viajesAsync = ref.watch(viajeProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Viajes Registrados')),
+      appBar: AppBar(
+        title: const Text('Viajes Registrados'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              await ref.read(authNotifierProvider).signOut();
+            },
+            tooltip: 'Cerrar sesión',
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {

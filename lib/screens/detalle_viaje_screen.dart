@@ -121,16 +121,18 @@ class DetalleViajeScreen extends ConsumerWidget {
           FloatingActionButton(
             heroTag: 'editar',
             child: const Icon(Icons.edit),
-            onPressed: () async {
-              final editado = await Navigator.push<Viaje>(
+            onPressed: () {
+              Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => CrearViajeScreen(viaje: viaje, onGuardar: (_) {}),
+                  builder: (_) => CrearViajeScreen(
+                    viaje: viaje,
+                    onGuardar: (editado) {
+                      ref.read(viajeProvider.notifier).agregarViaje(editado);
+                    },
+                  ),
                 ),
               );
-              if (editado != null) {
-                ref.read(viajeProvider.notifier).agregarViaje(editado);
-              }
             },
           ),
         ],

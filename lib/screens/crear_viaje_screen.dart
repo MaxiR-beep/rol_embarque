@@ -1,4 +1,3 @@
-// Al inicio del archivo, reemplazar imports:
 import 'package:flutter/material.dart';
 import '../models/pasajero.dart';
 import '../models/viaje.dart';
@@ -15,12 +14,8 @@ class CrearViajeScreen extends StatefulWidget {
 }
 
 class _CrearViajeScreenState extends State<CrearViajeScreen> {
-  final TextEditingController origenController = TextEditingController();
-  final TextEditingController destinoController = TextEditingController();
-  final TextEditingController embarcacionController = TextEditingController();
   final TextEditingController capitanController = TextEditingController();
   final TextEditingController horaController = TextEditingController();
-  final TextEditingController pasajerosController = TextEditingController();
   final TextEditingController observacionesController = TextEditingController();
   final TextEditingController apellidoController = TextEditingController();
   final TextEditingController nombreController = TextEditingController();
@@ -157,10 +152,6 @@ class _CrearViajeScreenState extends State<CrearViajeScreen> {
       pasajeros.add(pasajero);
     });
 
-    final boxPasajeros = Hive.box<Pasajero>('pasajeros');
-
-    boxPasajeros.put(pasajero.dni, pasajero);
-
     apellidoController.clear();
     nombreController.clear();
     dniController.clear();
@@ -202,7 +193,7 @@ class _CrearViajeScreenState extends State<CrearViajeScreen> {
 
     widget.onGuardar(viaje);
 
-    Navigator.pop(context);
+    Navigator.pop(context, viaje);
   }
 
   @override

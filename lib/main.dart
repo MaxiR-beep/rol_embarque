@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'providers/auth_provider.dart';
 import 'services/supabase_service.dart';
+import 'screens/login_screen.dart';
 import 'screens/viajes_screen.dart';
 
 Future<void> main() async {
@@ -9,16 +11,24 @@ Future<void> main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authProvider);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Rol de Embarque',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const ViajesScreen(),
+      home: authState.when(
+        data: (user) => user != null ? const ViajesScreen() : const LoginScreen(),
+        loading: () => const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        ),
+        error: (_, __) => const LoginScreen(),
+      ),
     );
   }
 }
